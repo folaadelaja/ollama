@@ -427,6 +427,10 @@ func (s *Server) processBatch(tokenBatch *llama.Batch, embedBatch *llama.Batch) 
 		return
 	}
 
+	if crossAttention {
+		s.lc.Synchronize()
+	}
+
 	for i, seq := range s.seqs {
 		if seq == nil {
 			continue
